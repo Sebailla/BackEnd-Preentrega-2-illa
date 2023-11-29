@@ -1,0 +1,148 @@
+/**----- FONTS FAMILY -----*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,500;0,700;1,100;1,200;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+
+/**----- GENERAL RESET -----*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 30px;
+}
+
+/*Todo----- REAL TIME PRODUCT -----*/
+
+h1 {
+  margin: 20px 0;
+  font-family: "Poppins";
+}
+
+#formAddProduct {
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+}
+
+.btnAddProd {
+  display: flex;
+  justify-content: center;
+}
+
+/*Todo----- PRODUCT -----*/
+
+.productCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.btnComprar .btn404 {
+  display: flex;
+  justify-content: center;
+}
+
+.listProduct {
+  margin: 40px 0;
+  font-family: "Poppins";
+  text-align: center;
+}
+
+.productsHeader {
+  display: flex;
+  justify-content: space-between
+}
+
+.paginate {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.paginateFilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  
+}
+
+.btnPaginate {
+  text-decoration: none;
+  background-color: cornflowerblue;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.txtPaginate {
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+.inpSearch {
+  padding: 5px 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  width: 50%;
+  height: 25px;
+}
+
+h4 {
+  text-align: center;
+  margin: 15px;
+}
+
+
+/*Todo----- INDEX.HTML - 404 -----*/
+
+.btnPrincipal {
+
+  text-decoration: none;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  height: 42px;
+  background-color: darkkhaki;
+  font-family: "Poppins";
+  color: black;
+  border-radius: 5px;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+  padding: 20px;
+}
+
+/* 404 s*/
+
+img {
+  width: 50%;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  color: rgb(1, 5, 12);
+  padding: 20px;
+}

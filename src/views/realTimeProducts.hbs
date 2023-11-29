@@ -1,0 +1,79 @@
+<div>
+  <hr>
+  <div class="productsHeader">
+    <h1 class="listProduct">Productos en tiempo Real</h1>
+    <div class="productsHeader">
+      <a href="./index.html" class="btnPrincipal">Home</a>
+      <a href="/products" class="btnPrincipal">Productos</a>
+    </div>
+  </div>
+  <hr>
+  <h3>Nuevo Producto</h3>
+
+  {{!-- Formulario de addproduct --}}
+
+  <form id="formAddProduct">
+
+    <div class="form-floating col-md-3">
+      <input type"text" class="form-control mb-9" id="title" placeholder="">
+      <label for="floatingInput">Title</label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="text" class="form-control mb-6" id="description" placeholder="">
+      <label for="floatingInput">Descripción</label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="number" class="form-control mb-6" id="price" placeholder="">
+      <label for="floatingInput">Precio $ </label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="text" class="form-control mb-6" id="code" placeholder="">
+      <label for="floatingInput">Código</label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="number" class="form-control mb-6" id="stock" placeholder="">
+      <label for="floatingInput">Stock</label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="text" class="form-control mb-6" id="category" placeholder="">
+      <label for="floatingInput">Categoría</label>
+    </div>
+    <div class="form-floating col-md-3">
+      <input type="text" class="form-control mb-6" id="thumbnail" placeholder="">
+      <label for="floatingInput">Imagen</label>
+    </div>
+
+</div>
+</form>
+<br>
+<div class="btnAddProd">
+  <button type="submit" class="btn btn-primary btnAddProduct">Guardar</button>
+</div>
+
+<br>
+<hr>
+<br>
+
+{{!-- Tabla que muestra los productos --}}
+
+<table class="table productsTable">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Imagen</th>
+      <th scope="col">Título</th>
+      <th scope="col">Descripción</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Status</th>
+      <th scope="col">Acción</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+  </tbody>
+</table>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/socketClient.js"></script>

@@ -1,0 +1,183 @@
+<hr />
+<div class="productsHeader">
+    <h1 class="listProduct">Lista de Productos</h1>
+    <div class="productsHeader">
+        <a href="./index.html" class="btnPrincipal">Home</a>
+        <a href="/realtimeproducts" class="btnPrincipal">Cargar Producto</a>
+        <a href="/carts/656683289400ef10584a6a01" class="btnPrincipal">Carrito</a>
+    </div>
+
+</div>
+<hr />
+<div>
+    Total Productos: <b>{{totalDocs}}</b>
+    <br />
+    <hr>
+    <div class="paginate">
+        <p class="txtPaginate">Buscar Producto: </p>
+        <input type="text" id="query" value="{{query}}" class="inpSearch" />
+        <button class="btn btn-outline-primary" id="btnSearchTitle">Search</button>
+    </div>
+
+    <hr>
+    <br>
+
+    <h4>Filtros</h4>
+
+   Limit: <input type="text" id="limit">
+    Page: <input type="text" id="page">
+            
+    <div>
+        <div class="row">
+            {{!-- <div class="col">
+                <input type="text" class="form-control" placeholder="Limit" aria-label="Limit" id="limit">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Pagina" aria-label="Página" id="page">
+            </div> --}}
+            <div class="col">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Catgoría:</option>
+                    {{#each payload}}
+                    <option value="{{category}}">{{category}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Disponible
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sin disponibilidad
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <select class="form-select" aria-label="Default select example" id="sort">
+                    <option value="asc">Ascendente</option>
+                    <option value="desc">Descendente</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="paginateFilter">
+    <button class="btn btn-outline-primary" id="btnSearch">Search</button>
+</div>
+
+<br />
+</div>
+<hr>
+<div class="productCard">
+
+    {{#each payload}}
+
+    <div class="card" style="width: 300px;">
+        {{#if this.thumbnail.length}}
+        <img src="{{this.thumbnail}}" class="card-img-top" alt="{{this.title}}" width="75" height="250" />
+        {{else}}
+        Sin Imágen
+        {{/if}}
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+            <p class="card-text">Precio: $ <b>{{this.price}}</b></p>
+            <p class="card-text">Stock: <b>{{this.stock}}</b></p>
+            <p class="card-text">Status:
+                {{#if this.status}}
+                <b>Activo</b>
+                {{else}}
+                <b>Desactivado</b>
+                {{/if}}
+            </p>
+        </div>
+        <div class="card-body btnComprar">
+            <button class="btn btn-outline-info" id="btnAdToCart" onclick="addToCart('{{this._id}}')">Add Cart</button>
+        </div>
+    </div>
+
+    {{/each}}
+
+</div>
+<br>
+<hr>
+<input id="prevPage" type="hidden" value="{{prevPage}}" />
+<input id="nextPage" type="hidden" value="{{nextPage}}" />
+<dir class="paginate">
+    <a class="btnPaginate" id="btnPrev" href="#" {{#unless hasPrevPage}} style="display: none;" {{/unless}}>Prev</a>
+    <p class="txtPaginate">Pages: <b>{{page}}</b> / {{totalPages}}</p> <br />
+    <a class="btnPaginate" id="btnNext" {{#unless hasNextPage}} style="display: none;" {{/unless}} href="#">Next</a>
+</dir>
+<hr>
+<br>
+
+<script>
+
+    document.querySelector('#btnPrev').onclick = () => {
+        const prevPage = document.querySelector('#prevPage').value
+        const limit = document.querySelector('#limit').value
+        const query = document.querySelector('#query').value
+        const sort = document.querySelector('#sort').value
+        const url = `/products?page=${prevPage}&limit=${limit}&query=${query}&sort=${sort}`
+        document.location.href = url
+    }
+
+    document.querySelector('#btnNext').onclick = () => {
+        const nextPage = document.querySelector('#nextPage').value
+        const limit = document.querySelector('#limit').value
+        const query = document.querySelector('#query').value
+        const sort = document.querySelector('#sort').value
+        const url = `/products?page=${nextPage}&limit=${limit}&query=${query}&sort=${sort}`
+        document.location.href = url
+    }
+
+    document.querySelector('#btnSearch').onclick = () => {
+        const limit = document.querySelector('#limit').value
+        const page = document.querySelector('#page').value
+        const query = document.querySelector('#query').value
+        const sort = document.querySelector('#sort').value
+        const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}`
+        document.location.href = url
+    }
+
+    document.querySelector('#btnSearchTitle').onclick = () => {
+        const limit = document.querySelector('#limit').value
+        const page = 1
+        const query = document.querySelector('#query').value
+        const sort = document.querySelector('#sort').value
+        const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}`
+        document.location.href = url
+    }
+
+
+    function addToCart(pid) {
+        const idCart = '656683289400ef10584a6a01'
+        fetch(`/api/cart/${idCart}/product/${pid}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(error => {
+                console.log('Error: ' + error)
+            })
+
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Producto cargado al Carrito",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } 
+</script>

@@ -1,0 +1,40 @@
+<hr />
+<div class="productsHeader">
+    <h1 class="listProduct">Carrito de Compras</h1>
+    <div class="productsHeader">
+        <a href="/" class="btnPrincipal">Home</a>
+        <a href="/products" class="btnPrincipal">Productos</a>
+        <a href="/realtimeproducts" class="btnPrincipal">Cargar Producto</a>
+    </div>
+
+</div>
+<hr />
+
+<div>
+    <h3>Lista de Productos</h3>
+
+    <hr>
+
+    <table class="table productsTable">
+        <thead>
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each cart.products}}
+            <tr>
+                <td>{{this.id.title}}</td>
+                <td>{{this.id.description}}</td>
+                <td>$ {{this.id.price}}</td>
+                <td>{{this.quantity}}</td>
+            </tr>
+            {{/each}}
+
+
+        </tbody>
+    </table>
+</div>
