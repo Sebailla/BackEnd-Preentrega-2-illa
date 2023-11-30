@@ -23,51 +23,50 @@
 
     <h4>Filtros</h4>
 
-    <div>
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Limit" aria-label="Limit" id="limit">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Pagina" aria-label="Página" id="page">
-            </div>
-            <div class="col">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Catgoría:</option>
-                    {{#each payload}}
-                    <option value="{{category}}">{{category}}</option>
-                    {{/each}}
-                </select>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Disponible
-                    </label>
+    {{!-- todo --}}
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Filtros de Busqueda
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    Limit: <input id="limit" type="text" value="{{limit}}"><br>
+
+                    Page: <input id="page" type="text" value="{{page}}"><br>
+
+                    Disponibilidad: <select name="" id="status">
+                        <option value="true">Disponible</option>
+                        <option value="false">Sin Disponibilidad</option>
+                    </select>
+
+                    Category: <select name="" id="category">
+                        <option value=""></option>
+                        {{#each payload}}
+                        <option value="{{category}}">{{category}}</option>
+                        {{/each}}
+                    </select>
+                    <br>
+                    Ordenar Precio: <select name="" id="sort">
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+
+                    <div class="paginateFilter">
+                        <button class="btn btn-outline-primary" id="btnSearch">Search</button>
+                    </div>
+
+
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Sin disponibilidad
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <select class="form-select" aria-label="Default select example" id="sort">
-                    <option value="asc">Ascendente</option>
-                    <option value="desc">Descendente</option>
-                </select>
             </div>
         </div>
     </div>
-</div>
 
-<div class="paginateFilter">
-    <button class="btn btn-outline-primary" id="btnSearch">Search</button>
-</div>
-
-<br />
 </div>
 <hr>
 <div class="productCard">
@@ -120,7 +119,11 @@
         const limit = document.querySelector('#limit').value
         const query = document.querySelector('#query').value
         const sort = document.querySelector('#sort').value
-        const url = `/products?page=${prevPage}&limit=${limit}&query=${query}&sort=${sort}`
+
+        const status = document.querySelector('#status').value
+        const category = document.querySelector('#category').value
+
+        const url = `/products?page=${prevPage}&limit=${limit}&query=${query}&sort=${sort}&status=${status}&category=${category}`
         document.location.href = url
     }
 
@@ -129,7 +132,11 @@
         const limit = document.querySelector('#limit').value
         const query = document.querySelector('#query').value
         const sort = document.querySelector('#sort').value
-        const url = `/products?page=${nextPage}&limit=${limit}&query=${query}&sort=${sort}`
+
+        const status = document.querySelector('#status').value
+        const category = document.querySelector('#category').value
+
+        const url = `/products?page=${nextPage}&limit=${limit}&query=${query}&sort=${sort}&status=${status}&category=${category}`
         document.location.href = url
     }
 
@@ -138,7 +145,11 @@
         const page = document.querySelector('#page').value
         const query = document.querySelector('#query').value
         const sort = document.querySelector('#sort').value
-        const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}`
+
+        const status = document.querySelector('#status').value
+        const category = document.querySelector('#category').value
+
+        const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}&status=${status}&category=${category}`
         document.location.href = url
     }
 
@@ -150,6 +161,22 @@
         const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}`
         document.location.href = url
     }
+
+    let searchTitle = document.getElementById('query');
+
+    searchTitle.addEventListener('keyup', evt => {
+        if (evt.key === 'Enter') {
+            if (searchTitle.value.length > 0) {
+                const limit = document.querySelector('#limit').value
+                const page = 1
+                const query = document.querySelector('#query').value
+                const sort = document.querySelector('#sort').value
+                const url = `/products?page=${page}&limit=${limit}&query=${query}&sort=${sort}`
+                document.location.href = url
+                chatBox.value = '';
+            }
+        }
+    });
 
 
     function addToCart(pid) {

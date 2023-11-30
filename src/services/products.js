@@ -2,17 +2,24 @@ import ProductsModel from '../dao/models/products.model.js'
 
 // Todo:    SERVICIOS
 
-export const getProductsServices = async ({ limit, page, query, sort }) => {
+export const getProductsServices = async ({ limit, page, query, sort, category, status }) => {
 
     try {
 
-        limit = parseInt(limit ?? 10)
-        page = parseInt(page ?? 1)
+        limit = parseInt(limit ? limit : 10)
+        page = parseInt(page ? page : 1)
         query = query ?? ''
-        sort = sort ?? ''
+        sort = sort ? sort : 'asc'
+
+        category = category ? category : ''
+        status = status
+
 
         const search = {}
         if (query) search.title = { '$regex': query, '$options': 'i' }
+        if (category) search.category = category
+        if (status) search.status = status
+
 
         const options = {
             page: page,
@@ -22,7 +29,7 @@ export const getProductsServices = async ({ limit, page, query, sort }) => {
         }
 
         if (sort) {
-            options.sort.price = sort === 'asc' ? 1 : -1
+            options.sort.price = sort == 'asc' ? 1 : -1
         }
 
         const result = await ProductsModel.paginate(search, options)
@@ -51,10 +58,10 @@ export const getProductByIdServices = async (pid) => {
 export const addProductServices = async ({ title, description, price, thumbnail, code, stock, category, status }) => {
     try {
         return await ProductsModel.create({ title, description, price, thumbnail, code, stock, category, status })
-    }catch (error) {
-    console.log('Error en addProductServices:', error)
-    throw error
-}
+    } catch (error) {
+        console.log('Error en addProductServices:', error)
+        throw error
+    }
 }
 
 export const updateProductServices = async (pid, rest) => {

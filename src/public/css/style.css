@@ -13,6 +13,7 @@
 
 body {
   margin: 30px;
+  font-family: "Poppins";
 }
 
 /*Todo----- REAL TIME PRODUCT -----*/
@@ -145,4 +146,36 @@ img {
 h1 {
   color: rgb(1, 5, 12);
   padding: 20px;
+}
+
+/* ?   NUEVOOO  */
+
+
+input[type="text"], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  margin-top: 12px;
+}
+
+input[type="submit"] {
+  width: 50px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
 }
