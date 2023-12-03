@@ -1,5 +1,5 @@
 import { request, response } from "express"
-import { addProductServices, deleteProductServices, getProductByIdServices, getProductsServices, updateProductServices } from "../../services/products.js"
+import { addProductServices, deleteProductServices, getProductByIdServices, getProductsServices, updateProductServices } from "../services/products.js"
 
 //Todo:       CONTROLADORES
 

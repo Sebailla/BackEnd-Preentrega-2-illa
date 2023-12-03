@@ -1,4 +1,4 @@
-import ProductsModel from '../dao/models/products.model.js'
+import ProductsModel from '../models/products.model.js'
 
 // Todo:    SERVICIOS
 

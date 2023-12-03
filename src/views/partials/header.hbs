@@ -1,0 +1,20 @@
+<header>
+    <div class="productsHeader">
+        <h1 class="listProduct">{{title}}</h1>
+        <nav>
+            <div class="productsHeader">
+                {{#if isAuthenticated}}
+                <a href="/products" class="btnPrincipal">Home</a>
+                <a href="/realtimeproducts" class="btnPrincipal">Cargar Producto</a>
+                <a href="/carts/656683289400ef10584a6a01" class="btnPrincipal">Carrito</a>
+                <p>Bienvenido {{user.firstName}} !!</p>
+                <a href="/logout" class="btnPrincipal">Logout</a>
+                <a href="/chat"><img src="./icon/chat.svg" alt=""></a>
+                {{else}}
+                <P>Bienvenido, debes logearte!</P>
+                <a href="/register" class="btnPrincipal">Register</a>
+                {{/if}}
+            </div>
+        </nav>
+    </div>
+</header>
