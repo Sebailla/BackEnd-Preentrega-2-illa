@@ -19,7 +19,7 @@ const renderizar = (msgs) => {
     msgs.forEach(message => {
         const isCurrentUser = message.user === user;
         const messageClass = isCurrentUser ? 'my-message' : 'other-message';
-        messages = messages + `<div class="${messageClass}">${message.user}: ${message.message}</div>`;
+        messages = messages + `<div class="${messageClass}"><b>${message.user}: </b> => ${message.message}</div>`;
     });
 
     log.innerHTML = messages;

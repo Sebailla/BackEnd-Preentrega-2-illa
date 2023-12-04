@@ -1,13 +1,21 @@
-{{> header}}
 
-<form action="/api/session/login" method="POST">
-    Email: <input type="email" name="email"><br>
-    Password: <input type="password" name="password"><br>
+<div id="contenedor">
+    <div id="central">
+        <div id="login">
+            <div class="titulo">
+                Bienvenido
+            </div>
+            <form id="loginform" action="/api/session/login" method="POST">
+                <input type="email" name="email" placeholder="Email" required>
 
-    <button type="submit">Login</button>
+                <input type="password" placeholder="Password" name="password" required>
 
-    
-</form>
-
-Si no estas registrado, registrate aca! 
-<a href="/register">Register</a>
+                <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+            </form>
+            <div class="pie-form">
+                {{!-- <a href="#">¿Perdiste tu contraseña?</a> --}}
+                <a href="/register">¿No tienes Cuenta? <b>Regístrate</b></a>
+            </div>
+        </div>
+    </div>
+</div>

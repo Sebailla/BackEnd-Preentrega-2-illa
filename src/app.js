@@ -6,10 +6,11 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import 'dotEnv/config'
 
-import productsRouter from './routers/products.js'
-import cartRouter from './routers/cart.js'
-import viewsRouter from './routers/views.js'
+import ProductsRouter from './routers/products.js'
+import CartRouter from './routers/cart.js'
+import ViewsRouter from './routers/views.js'
 import SessionRouter from './routers/session.router.js'
+
 import { dbConnection } from './db/config.js'
 import chatModel from './models/chat.model.js'
 import { addProductServices, getProductsServices } from './services/products.js'
@@ -45,9 +46,9 @@ app.set('view engine', 'hbs')
 app.set('views', __dirname + '/views')
 
 // Router 
-app.use('/', viewsRouter)
-app.use('/api/products', productsRouter)
-app.use('/api/cart', cartRouter)
+app.use('/', ViewsRouter)
+app.use('/api/products', ProductsRouter)
+app.use('/api/cart', CartRouter)
 app.use('/api/session', SessionRouter)
 
 

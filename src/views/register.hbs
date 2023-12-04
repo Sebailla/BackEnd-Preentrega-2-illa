@@ -1,15 +1,26 @@
-{{> header}}
 
-<form action="/api/session/register" method="POST">
-First Name: <input type="text" name="firstName" id=""> <br>
-Last Name: <input type="text" name="lastName" id=""> <br>
-Age: <input type="number" name="age" id=""> <br>
-Email: <input type="email" name="email" id=""> <br>
-Password: <input type="password" name="password" id=""> <br>
-Role: <input type="password" name="role" id=""> <br>
+<div id="contenedor">
+    <div id="central">
+        <div id="login">
+            <div class="titulo">
+                Bienvenido
+            </div>
+            <form id="loginform" action="/api/session/register" method="POST">
 
-<button type="submit">Register</button>
-</form>
+                <input type="text" name="firstName" id="firstName" placeholder="Nombre" required>
+                <input type="text" name="lastName" id="lastName" placeholder="Apellido" required>
+                <input type="number" name="age" id="age" placeholder="Edad" required>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <input type="text" name="role" id="role" placeholder="Rol" required> <br>
 
-Si estas registrado, logueate aca! 
-<a href="/login">Register</a>
+                <button type="submit" title="Ingresar" name="Ingresar">Register</button>
+            </form>
+            <div class="pie-form">
+                {{!-- <a href="#">¿Perdiste tu contraseña?</a> --}}
+                <a href="/login">¿Ya tienes cuenta? <b>Login</b></a>
+            </div>
+        </div>
+    </div>
+</div>
+
