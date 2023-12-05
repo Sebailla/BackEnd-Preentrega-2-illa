@@ -18,8 +18,9 @@ import { addProductServices, getProductsServices } from './services/products.js'
 
 
 const app = express()
-const DBurl = 'mongodb+srv://sebastianilla77:146tagSUCdi2foy7@cluster-illa01.jgxrppm.mongodb.net/'
-const DBName = 'ecommerce'
+const port = process.env.PORT
+const DBurl = process.env.URL_MONGODB 
+const DBName = process.env.DB_NAME 
 
 
 app.use(express.static((__dirname + '/public')))
@@ -54,7 +55,7 @@ app.use('/api/session', SessionRouter)
 
 
 // Express Server
-const httpServer = app.listen(8080, () => console.log('listening on port 8080 ...'))
+const httpServer = app.listen(port, () => console.log('listening on port 8080 ...'))
 
 // WebSocket Server
 const io = new Server(httpServer)
