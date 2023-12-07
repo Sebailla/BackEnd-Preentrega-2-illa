@@ -1,4 +1,5 @@
 import UserModel from '../models/users.model.js'
+import { createHash } from '../utils.js'
 
 export const getUserEmail = async (email) =>{
     try {
@@ -11,6 +12,7 @@ export const getUserEmail = async (email) =>{
 
 export const registerUser = async (user) =>{
     try {
+        user.password = createHash(user.password)
         return await UserModel.create({...user})
     } catch (error) {
         console.log('Error en registerUser: ', error)

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 //?  Midleware
-import { auth } from '../middleware/auth.js'
+import { admin, auth } from '../middleware/auth.js'
 import { isSessionActive } from '../middleware/isSessionActive.js'
 
 //? Controlers
@@ -22,7 +22,7 @@ router.get('/logout', logoutView)
 //? Router products
 
 router.get('/products', [auth], productsView)
-router.get('/realtimeproducts', [auth], realTimeProductsView)
+router.get('/realtimeproducts', [auth, admin], realTimeProductsView)
 router.get('/carts/:cid',[auth], cartIdView)
 router.get('/chat', [auth], chatView)
 
