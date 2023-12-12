@@ -1,9 +1,11 @@
+// Dependencies Imports
 import express from 'express'
 import { engine } from 'express-handlebars'
 import { Server } from 'socket.io'
 import __dirname from './utils.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+import passport from 'passport'
 import 'dotEnv/config'
 
 import ProductsRouter from './routers/products.js'
@@ -14,20 +16,23 @@ import SessionRouter from './routers/session.router.js'
 import { dbConnection } from './db/config.js'
 import chatModel from './models/chat.model.js'
 import { addProductServices, getProductsServices } from './services/products.js'
+import initializePassport from './config/passport.config.js'
 
 
-
+// Variables de entorno 
 const app = express()
+const DBurl = process.env.URL_MONGODB
+const DBName = process.env.DB_NAME
 const port = process.env.PORT
-const DBurl = process.env.URL_MONGODB 
-const DBName = process.env.DB_NAME 
 
-
+// Rutas urls
 app.use(express.static((__dirname + '/public')))
+
+// Data para POST json
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-//Conección an BD
+//Conección a BD MongoDB
 await dbConnection()
 
 // Session
@@ -41,17 +46,21 @@ app.use(session({
     saveUninitialized: true
 }))
 
-// views
+// views handlebars
 app.engine('hbs', engine({ extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.set('views', __dirname + '/views')
+
+// Passport
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Router 
 app.use('/', ViewsRouter)
 app.use('/api/products', ProductsRouter)
 app.use('/api/cart', CartRouter)
 app.use('/api/session', SessionRouter)
-
 
 
 // Express Server

@@ -1,7 +1,7 @@
 import { request, response } from "express"
 import { addCartsServices, addProductsToCartServices, deleteCartServices, deleteProductInCartServices, getCartByIdServices, getCartsServices, updateProductInCartServices } from "../services/carts.js"
 
-//Todo:       CONTROLADORES
+//Todo:        CONTROLADORES
 
 export const getCarts = async (req = request, res = response) => {
     try {

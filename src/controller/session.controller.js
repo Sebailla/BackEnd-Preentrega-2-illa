@@ -1,23 +1,32 @@
 import { request, response } from "express";
 import { getUserEmail, registerUser } from "../services/users.js"
-import Swal from "sweetalert2"
+
+//import { isValidPassword } from "../utils.js";
 
 
 export const postLogin = async (req = request, res = response) => {
-    const { email, password } = req.body
+    /* const { email, password } = req.body
     const user = await getUserEmail(email)
 
-    if (user && user.password === password) {
-        req.session.user = user
-        req.session.role = user.role
-        return res.redirect('/products')
-    } else {
-        return res.redirect('/register')
+    if (!user) {
+        return res.status(404).send('User not Found')
     }
+    if (!isValidPassword(user, password)) {
+        return res.status(404).send('Invalid password')
+    } */
+    if (!req.user) {
+        return res.status(400).send('Invalid credentials')
+
+    }
+
+    req.session.user = req.user
+    req.session.role = req.user.role
+    return res.redirect('/products')
 }
 
 export const postRegister = async (req = request, res = response) => {
-    const user = await registerUser({ ...req.body })
+    
+    /* const user = await registerUser({ ...req.body })
     if (user) {
 
         req.session.user = user
@@ -26,9 +35,17 @@ export const postRegister = async (req = request, res = response) => {
     } else {
         alert('Register error')
         return res.redirect('/register')
+    } */
+
+    if(!req.user){
+        console.log('error en postRegister')
+        return res.redirect('/register')
     }
 
+    return res.redirect('/login')
+
 }
+
 
 export const postLogout = async (req = request, res = response) => {
     req.session.destroy(error => {

@@ -34,6 +34,9 @@ export const rootView = async (req = request, res = response) => {
 }
 
 export const loginView = async (req = request, res = response) => {
+    if(req.session.user){
+        return res.redirect('/products')
+    }
     return res.render('login', { title: 'Login' })
 }
 
