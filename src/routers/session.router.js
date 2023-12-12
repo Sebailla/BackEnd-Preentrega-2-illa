@@ -8,11 +8,12 @@ const router = Router()
 //router.post('/login', postLogin)
 router.post(
     '/login',
-    passport.authenticate('login', { failureRedirect: '/login' }),
+    passport.authenticate('login', {failureRedirect: '/login' }),
     postLogin
 )
 
-router.post('/register',
+router.post(
+    '/register',
     passport.authenticate('register', { failureRedirect: '/register' }),
     postRegister
 )

@@ -2,6 +2,7 @@ import passport from 'passport'
 import local from 'passport-local'
 import UserModel from '../models/users.model.js'
 import { createHash, isValidPassword } from '../utils.js'
+import { getUserEmail, registerUser } from '../services/users.js'
 
 const LocalStrategy = local.Strategy
 
@@ -15,25 +16,27 @@ const initializePassport = () => {
             usernameFiel: 'email'
         },
         async (req, username, password, done) => {
-            const { name, email } = req.body
             try {
-                const user = await UserModel.findOne({ email: username })
+                const user = await getUserEmail(username)
                 if (user) {
-                    console.log('User already exits')
+                    console.log('El Usuario ya existe')
                     return done(null, false)
                 }
-                const newUser = {
-                    name,
-                    email,
-                    password: createHash(password)
+
+                req.body.password = createHash(password)
+
+                const newUser = await registerUser({...req.body})
+                if(newUser){
+                    return done(null, newUser)
                 }
-                const result = await UserModel.create(newUser)
-                return done(null, result)
+                return done (null, false)
 
             } catch (error) {
-                done('Error to register', error)
+                console.log(error)
+                done(error)
             }
-        }))
+        }
+    ))
 
     //? Estrategia de Login
 
@@ -41,14 +44,14 @@ const initializePassport = () => {
         { usernameField: 'email' },
         async (username, password, done) => {
             try {
-                const user = await UserModel.findOne({ email: username}).lean().exec()
-                if(!user){
+                const user = await UserModel.findOne({ email: username }).lean().exec()
+                if (!user) {
                     console.error('User dont exist', username)
                     return done(null, false)
                 }
-                if(!isValidPassword(user,password)){
+                if (!isValidPassword(user, password)) {
                     console.error('Invalid password')
-                    return doen (null, false)
+                    return doen(null, false)
                 }
                 return done(null, user)
 

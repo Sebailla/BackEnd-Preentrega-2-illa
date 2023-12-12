@@ -16,6 +16,7 @@ export const postLogin = async (req = request, res = response) => {
     } */
     if (!req.user) {
         return res.status(400).send('Invalid credentials')
+
     }
 
     req.session.user = req.user
@@ -24,6 +25,7 @@ export const postLogin = async (req = request, res = response) => {
 }
 
 export const postRegister = async (req = request, res = response) => {
+    
     /* const user = await registerUser({ ...req.body })
     if (user) {
 
@@ -35,9 +37,15 @@ export const postRegister = async (req = request, res = response) => {
         return res.redirect('/register')
     } */
 
-    res.send('Registered')
+    if(!req.user){
+        console.log('error en postRegister')
+        return res.redirect('/register')
+    }
+
+    return res.redirect('/login')
 
 }
+
 
 export const postLogout = async (req = request, res = response) => {
     req.session.destroy(error => {
